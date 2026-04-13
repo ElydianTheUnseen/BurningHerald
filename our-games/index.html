@@ -32,18 +32,43 @@
 
   <!-- CONTENT -->
   <div class="content">
-    <h2>Our Games...</h2>
-    <p>Coming Soon...</p>
+    <h2>Our Games</h2>
 
-    <p>
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-    </p>
+    <!-- JSON WILL RENDER HERE -->
+    <div id="games-container"></div>
   </div>
 
   <!-- FOOTER -->
   <footer>
     © 2026 Burning Herald. All rights reserved.
   </footer>
+
+  <!-- JSON LOADER SCRIPT -->
+  <script>
+    fetch('/content/games.json')
+      .then(response => response.json())
+      .then(data => {
+        const container = document.getElementById('games-container');
+
+        data.games.forEach(game => {
+          const card = document.createElement('div');
+          card.className = 'game-card';
+
+          card.innerHTML = `
+            <h3>${game.title}</h3>
+            <p>${game.description}</p>
+            <span>${game.status}</span>
+          `;
+
+          container.appendChild(card);
+        });
+      })
+      .catch(err => {
+        document.getElementById('games-container').innerHTML =
+          '<p>Failed to load games data.</p>';
+        console.error('Error loading games.json:', err);
+      });
+  </script>
 
 </body>
 </html>
