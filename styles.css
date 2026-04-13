@@ -28,25 +28,24 @@ html, body {
 }
 
 /* =========================
-   BACKGROUND (FULL SCREEN WATERMARK)
+   BACKGROUND (FIXED + RELIABLE)
 ========================= */
 
-html::before {
+/* IMPORTANT: body instead of html for stability */
+body::before {
   content: "";
   position: fixed;
   inset: 0;
-  background: url('Burning Herald logo design.png') center center no-repeat;
+  background: url("/Burning Herald logo design.png") center center no-repeat;
   background-size: cover;
   opacity: 0.05;
   z-index: -1;
   pointer-events: none;
 }
 
-/* =========================
-   PAGE LAYOUT FIX
-========================= */
-
+/* ensure stacking context behaves correctly */
 body {
+  position: relative;
   display: flex;
   flex-direction: column;
   min-height: 100vh;
@@ -175,7 +174,7 @@ nav a:hover {
 }
 
 /* =========================
-   LOGO IMAGE (PAGE CONTENT LOGO)
+   LOGO IMAGE
 ========================= */
 
 .logo {
