@@ -22,11 +22,19 @@
       box-sizing: border-box;
     }
 
+    html, body {
+      height: 100%;
+    }
+
     body {
       margin: 0;
       font-family: 'Inter', sans-serif;
       background: radial-gradient(circle at top, #1a140f, #0b0a08 70%);
       color: var(--text-main);
+
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
     }
 
     /* HEADER */
@@ -41,28 +49,67 @@
       background: rgba(11, 10, 8, 0.7);
       backdrop-filter: blur(8px);
       z-index: 10;
+      box-sizing: border-box;
     }
 
+    /* BRAND AS HOME BUTTON (ANIMATED) */
     .brand {
       font-family: 'Cinzel', serif;
       font-size: 1.4rem;
       letter-spacing: 1px;
       color: var(--accent-soft);
+      text-decoration: none;
+      white-space: nowrap;
+      transition: transform 0.25s ease, color 0.25s ease, text-shadow 0.25s ease;
+      position: relative;
+    }
+
+    .brand:hover {
+      color: var(--accent);
+      transform: scale(1.05);
+      text-shadow: 0 0 12px rgba(249, 115, 22, 0.35);
+    }
+
+    .brand::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: -4px;
+      width: 100%;
+      height: 1px;
+      background: var(--accent);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.25s ease;
+      opacity: 0.7;
+    }
+
+    .brand:hover::after {
+      transform: scaleX(1);
+    }
+
+    /* NAV FIX (NO CROPPING) */
+    nav {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+      gap: 20px;
+      max-width: 75%;
     }
 
     nav a {
-      margin-left: 30px;
       text-decoration: none;
       color: var(--text-muted);
       font-size: 0.95rem;
-      transition: 0.3s;
+      white-space: nowrap;
+      transition: color 0.3s ease;
     }
 
     nav a:hover {
       color: var(--accent);
     }
 
-    /* HERO */
+    /* HERO (UNCHANGED) */
     .hero {
       height: 100vh;
       display: flex;
@@ -74,7 +121,6 @@
       position: relative;
     }
 
-    /* subtle background logo */
     .hero::before {
       content: "";
       position: absolute;
@@ -110,7 +156,7 @@
       color: var(--text-muted);
     }
 
-    /* BUTTON */
+    /* BUTTON (UNCHANGED) */
     .btn {
       margin-top: 30px;
       padding: 14px 28px;
@@ -129,7 +175,6 @@
       box-shadow: 0 8px 25px rgba(249, 115, 22, 0.5);
     }
 
-    /* SECTION PLACEHOLDER */
     section {
       padding: 100px 40px;
       text-align: center;
@@ -146,8 +191,11 @@
         padding: 15px 20px;
       }
 
+      nav {
+        gap: 12px;
+      }
+
       nav a {
-        margin-left: 15px;
         font-size: 0.85rem;
       }
 
@@ -166,16 +214,17 @@
 
   <!-- HEADER -->
   <header>
-    <div class="brand">Burning Herald</div>
+    <a class="brand" href="/home">Burning Herald</a>
+
     <nav>
       <a href="/home">Home</a>
       <a href="/our-games">Our Games</a>
-     <a href="/our-mission">Our Mission</a>
-       <a href="/our-policies">Policies</a>
+      <a href="/our-mission">Our Mission</a>
+      <a href="/our-policies">Policies</a>
     </nav>
   </header>
 
-  <!-- HERO -->
+  <!-- HERO (UNCHANGED CONTENT) -->
   <div class="hero">
     <div class="hero-content">
       <img src="Burning Herald NO NAME.png" alt="Burning Herald Logo" class="logo">
@@ -184,8 +233,6 @@
       <button class="btn">Notify Me</button>
     </div>
   </div>
-
-
 
 </body>
 </html>
