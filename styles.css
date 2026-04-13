@@ -1,4 +1,19 @@
 /* =========================
+   DESIGN TOKENS
+========================= */
+
+:root {
+  --bg-dark: #0b0a08;
+  --bg-sepia: #1a140f;
+
+  --accent: #f97316;
+  --accent-soft: #ffb067;
+
+  --text-main: #f5f5f4;
+  --text-muted: #c2b6a6;
+}
+
+/* =========================
    GLOBAL RESET
 ========================= */
 
@@ -10,33 +25,24 @@ html, body {
   height: 100%;
   margin: 0;
   font-family: 'Inter', sans-serif;
+  color: var(--text-main);
   background: radial-gradient(circle at top, #1a140f, #0b0a08 70%);
-  color: #f5f5f4;
 }
 
-/* ensure proper stacking context */
+/* =========================
+   LAYOUT BASE
+========================= */
+
 body {
   position: relative;
   display: flex;
   flex-direction: column;
   min-height: 100vh;
+  overflow-x: hidden;
 }
 
 /* =========================
-   DESIGN TOKENS
-========================= */
-
-:root {
-  --bg-dark: #0b0a08;
-  --bg-sepia: #1a140f;
-  --accent: #f97316;
-  --accent-soft: #ffb067;
-  --text-main: #f5f5f4;
-  --text-muted: #c2b6a6;
-}
-
-/* =========================
-   BACKGROUND (GLOBAL WATERMARK)
+   BACKGROUND WATERMARK
 ========================= */
 
 body::before {
@@ -44,8 +50,7 @@ body::before {
   position: fixed;
   inset: 0;
 
-  /* IMPORTANT: adjust path if needed */
-  background: url("Burning Herald logo design.png") center center no-repeat;
+  background: url("/Burning Herald logo design.png") center center no-repeat;
   background-size: cover;
 
   opacity: 0.05;
@@ -53,7 +58,7 @@ body::before {
   pointer-events: none;
 }
 
-/* ensure content sits above watermark */
+/* keep all content above watermark */
 body > * {
   position: relative;
   z-index: 1;
@@ -66,7 +71,9 @@ body > * {
 header {
   position: fixed;
   top: 0;
+  left: 0;
   width: 100%;
+
   padding: 20px 40px;
 
   display: flex;
@@ -75,6 +82,7 @@ header {
 
   background: rgba(11, 10, 8, 0.7);
   backdrop-filter: blur(8px);
+
   z-index: 10;
 }
 
@@ -133,7 +141,6 @@ nav {
   display: flex;
   flex-wrap: wrap;
   justify-content: flex-end;
-  align-items: center;
   gap: 20px;
 
   max-width: 75%;
@@ -153,11 +160,12 @@ nav a:hover {
 }
 
 /* =========================
-   HERO SECTION
+   HERO (HOME PAGE)
 ========================= */
 
 .hero {
   height: 100vh;
+
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -165,22 +173,16 @@ nav a:hover {
   text-align: center;
 
   padding: 20px;
-  position: relative;
-}
-
-.hero-content {
-  position: relative;
-  z-index: 2;
 }
 
 /* =========================
-   LOGO IMAGE
+   HERO (INTERNAL PAGES FIX)
 ========================= */
 
-.logo {
-  width: 260px;
-  max-width: 70%;
-  margin-bottom: 20px;
+.hero.hero--compact {
+  height: auto;
+  padding: 140px 20px 20px;
+  display: block;
 }
 
 /* =========================
@@ -194,10 +196,16 @@ h1 {
   margin: 0;
 }
 
-.tagline {
-  margin-top: 10px;
-  font-size: 1.2rem;
-  color: var(--text-muted);
+/* =========================
+   CONTENT AREA
+========================= */
+
+.content {
+  max-width: 900px;
+  margin: 120px auto 80px auto;
+  padding: 20px;
+  line-height: 1.7;
+  flex: 1;
 }
 
 /* =========================
@@ -217,25 +225,13 @@ h1 {
 
   cursor: pointer;
   transition: 0.3s;
+
   box-shadow: 0 5px 20px rgba(249, 115, 22, 0.3);
 }
 
 .btn:hover {
   transform: translateY(-2px);
   box-shadow: 0 8px 25px rgba(249, 115, 22, 0.5);
-}
-
-/* =========================
-   CONTENT AREA
-========================= */
-
-.content {
-  max-width: 900px;
-  margin: 120px auto 80px auto;
-  padding: 20px;
-  line-height: 1.7;
-
-  flex: 1;
 }
 
 /* =========================
@@ -254,7 +250,7 @@ footer {
 }
 
 /* =========================
-   GAME CARDS (POLISHED)
+   GAME GRID (OUR GAMES)
 ========================= */
 
 #games-container {
@@ -264,7 +260,10 @@ footer {
   margin-top: 30px;
 }
 
-/* CARD */
+/* =========================
+   GAME CARD
+========================= */
+
 .game-card {
   background: rgba(255, 255, 255, 0.03);
   border: 1px solid rgba(255, 255, 255, 0.08);
@@ -304,11 +303,6 @@ footer {
   opacity: 1;
 }
 
-/* stagger animation */
-.game-card:nth-child(1) { animation-delay: 0.05s; }
-.game-card:nth-child(2) { animation-delay: 0.1s; }
-.game-card:nth-child(3) { animation-delay: 0.15s; }
-
 /* TITLE */
 .game-card h3 {
   font-family: 'Cinzel', serif;
@@ -339,7 +333,7 @@ footer {
   border: 1px solid rgba(249, 115, 22, 0.25);
 }
 
-/* ANIMATION */
+/* ENTRY ANIMATION */
 @keyframes fadeUp {
   from {
     opacity: 0;
@@ -370,13 +364,5 @@ footer {
 
   h1 {
     font-size: 2rem;
-  }
-
-  .logo {
-    width: 200px;
-  }
-
-  .brand-icon {
-    height: 22px;
   }
 }
