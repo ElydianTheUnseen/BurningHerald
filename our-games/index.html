@@ -28,7 +28,6 @@
       background: radial-gradient(circle at top, #1a140f, #0b0a08 70%);
       color: var(--text-main);
 
-      /* ✅ FOOTER FIX */
       display: flex;
       flex-direction: column;
       min-height: 100vh;
@@ -49,14 +48,43 @@
       box-sizing: border-box;
     }
 
+    /* ✅ BRAND AS HOME BUTTON + ANIMATION */
     .brand {
       font-family: 'Cinzel', serif;
       font-size: 1.4rem;
       color: var(--accent-soft);
+      text-decoration: none;
       white-space: nowrap;
+      transition: transform 0.25s ease, color 0.25s ease, text-shadow 0.25s ease;
+      position: relative;
     }
 
-    /* ✅ NAV FIX (no crop) */
+    .brand:hover {
+      color: var(--accent);
+      transform: scale(1.05);
+      text-shadow: 0 0 12px rgba(249, 115, 22, 0.35);
+    }
+
+    /* subtle underline animation */
+    .brand::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: -4px;
+      width: 100%;
+      height: 1px;
+      background: var(--accent);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.25s ease;
+      opacity: 0.7;
+    }
+
+    .brand:hover::after {
+      transform: scaleX(1);
+    }
+
+    /* NAV FIX */
     nav {
       display: flex;
       flex-wrap: wrap;
@@ -69,6 +97,7 @@
       text-decoration: none;
       color: var(--text-muted);
       white-space: nowrap;
+      transition: color 0.2s ease;
     }
 
     nav a:hover {
@@ -87,14 +116,12 @@
       margin: 0;
     }
 
-    /* MAIN CONTENT */
+    /* CONTENT */
     .content {
       max-width: 900px;
       margin: 120px auto 80px auto;
       padding: 20px;
       line-height: 1.7;
-
-      /* helps footer push correctly */
       flex: 1;
     }
 
@@ -116,8 +143,7 @@
       font-size: 0.9rem;
       color: var(--text-muted);
       border-top: 1px solid rgba(255,255,255,0.05);
-
-      margin-top: auto; /* 🔥 sticks to bottom */
+      margin-top: auto;
     }
 
     /* MOBILE */
@@ -141,9 +167,9 @@
 
   <!-- HEADER -->
   <header>
-    <div class="brand">Burning Herald</div>
+    <a class="brand" href="/home">Burning Herald</a>
+
     <nav>
-      <a href="/home">Home</a>
       <a href="/our-games">Our Games</a>
       <a href="/our-mission">Our Mission</a>
       <a href="/our-policies">Policies</a>
