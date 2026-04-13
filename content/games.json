@@ -1,0 +1,14 @@
+{
+  "games": [
+    {
+      "title": "Game1",
+      "description": "Example Game One Description, very good. ",
+      "status": "Coming Soon"
+    },
+    {
+      "title": "Game2",
+      "description": "Example Game Two Description, very good.",
+      "status": "In Development"
+    }
+  ]
+}
