@@ -109,7 +109,7 @@
       color: var(--accent);
     }
 
-    /* HERO (UNCHANGED) */
+    /* HERO */
     .hero {
       height: 100vh;
       display: flex;
@@ -119,6 +119,7 @@
       text-align: center;
       padding: 20px;
       position: relative;
+      flex: 1;
     }
 
     .hero::before {
@@ -156,7 +157,7 @@
       color: var(--text-muted);
     }
 
-    /* BUTTON (UNCHANGED) */
+    /* BUTTON */
     .btn {
       margin-top: 30px;
       padding: 14px 28px;
@@ -175,14 +176,14 @@
       box-shadow: 0 8px 25px rgba(249, 115, 22, 0.5);
     }
 
-    section {
-      padding: 100px 40px;
+    /* FOOTER */
+    footer {
       text-align: center;
-    }
-
-    section h2 {
-      font-family: 'Cinzel', serif;
-      margin-bottom: 20px;
+      padding: 40px;
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      border-top: 1px solid rgba(255,255,255,0.05);
+      margin-top: auto;
     }
 
     /* MOBILE */
@@ -224,7 +225,7 @@
     </nav>
   </header>
 
-  <!-- HERO (UNCHANGED CONTENT) -->
+  <!-- HERO -->
   <div class="hero">
     <div class="hero-content">
       <img src="Burning Herald NO NAME.png" alt="Burning Herald Logo" class="logo">
@@ -233,6 +234,11 @@
       <button class="btn">Notify Me</button>
     </div>
   </div>
+
+  <!-- FOOTER -->
+  <footer>
+    © 2026 Burning Herald. All rights reserved.
+  </footer>
 
 </body>
 </html>
