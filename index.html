@@ -66,11 +66,11 @@
     .hero {
       height: 100vh;
       display: flex;
-      flex-direction: column;
       justify-content: center;
       align-items: center;
       text-align: center;
       padding: 20px;
+      padding-top: 100px; /* prevents overlap with navbar */
       position: relative;
     }
 
@@ -82,7 +82,7 @@
       height: 60%;
       background: url('Burning Herald logo design.png') no-repeat center;
       background-size: contain;
-      opacity: 0.05;
+      opacity: 0.03;
       z-index: 0;
     }
 
@@ -91,17 +91,11 @@
       z-index: 1;
     }
 
-    .logo {
-      width: 260px;
-      max-width: 70%;
-      margin-bottom: 20px;
-    }
-
-    h1 {
-      font-family: 'Cinzel', serif;
-      font-size: 2.8rem;
-      letter-spacing: 2px;
-      margin: 0;
+    .hero-logo {
+      width: 220px;
+      max-width: 60%;
+      margin-bottom: 30px;
+      filter: drop-shadow(0 0 20px rgba(249, 115, 22, 0.25));
     }
 
     .tagline {
@@ -151,12 +145,8 @@
         font-size: 0.85rem;
       }
 
-      h1 {
-        font-size: 2rem;
-      }
-
-      .logo {
-        width: 200px;
+      .hero-logo {
+        width: 180px;
       }
     }
   </style>
@@ -177,8 +167,7 @@
   <!-- HERO -->
   <div class="hero">
     <div class="hero-content">
-      <img src="Burning Herald logo design.png" alt="Burning Herald Logo" class="logo">
-      <h1>Burning Herald</h1>
+      <img src="Burning Herald NO NAME.png" alt="Burning Herald Logo" class="hero-logo">
       <p class="tagline">Your Summoning Awaits.</p>
       <button class="btn">Notify Me</button>
     </div>
