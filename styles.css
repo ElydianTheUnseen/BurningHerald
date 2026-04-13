@@ -14,6 +14,14 @@ html, body {
   color: #f5f5f4;
 }
 
+/* ensure proper stacking context */
+body {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
 /* =========================
    DESIGN TOKENS
 ========================= */
@@ -28,27 +36,27 @@ html, body {
 }
 
 /* =========================
-   BACKGROUND (FIXED + RELIABLE)
+   BACKGROUND (GLOBAL WATERMARK)
 ========================= */
 
-/* IMPORTANT: body instead of html for stability */
 body::before {
   content: "";
   position: fixed;
   inset: 0;
-  background: url("/Burning Herald logo design.png") center center no-repeat;
+
+  /* IMPORTANT: adjust path if needed */
+  background: url("Burning Herald logo design.png") center center no-repeat;
   background-size: cover;
+
   opacity: 0.05;
-  z-index: -1;
+  z-index: 0;
   pointer-events: none;
 }
 
-/* ensure stacking context behaves correctly */
-body {
+/* ensure content sits above watermark */
+body > * {
   position: relative;
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
+  z-index: 1;
 }
 
 /* =========================
@@ -60,16 +68,18 @@ header {
   top: 0;
   width: 100%;
   padding: 20px 40px;
+
   display: flex;
   justify-content: space-between;
   align-items: center;
+
   background: rgba(11, 10, 8, 0.7);
   backdrop-filter: blur(8px);
   z-index: 10;
 }
 
 /* =========================
-   BRAND (HOME BUTTON + LOGO)
+   BRAND (HOME BUTTON)
 ========================= */
 
 .brand {
@@ -80,11 +90,12 @@ header {
   font-family: 'Cinzel', serif;
   font-size: 1.4rem;
   letter-spacing: 1px;
+
   color: var(--accent-soft);
   text-decoration: none;
   white-space: nowrap;
-  position: relative;
 
+  position: relative;
   transition: transform 0.25s ease, color 0.25s ease, text-shadow 0.25s ease;
 }
 
@@ -102,6 +113,7 @@ header {
   bottom: -4px;
   width: 100%;
   height: 1px;
+
   background: var(--accent);
   transform: scaleX(0);
   transform-origin: left;
@@ -114,22 +126,6 @@ header {
 }
 
 /* =========================
-   BRAND ICON (NO NAME LOGO)
-========================= */
-
-.brand-icon {
-  height: 28px;
-  width: auto;
-  opacity: 0.9;
-  transition: transform 0.25s ease, opacity 0.25s ease;
-}
-
-.brand:hover .brand-icon {
-  transform: scale(1.05);
-  opacity: 1;
-}
-
-/* =========================
    NAVIGATION
 ========================= */
 
@@ -137,7 +133,9 @@ nav {
   display: flex;
   flex-wrap: wrap;
   justify-content: flex-end;
+  align-items: center;
   gap: 20px;
+
   max-width: 75%;
 }
 
@@ -146,6 +144,7 @@ nav a {
   color: var(--text-muted);
   white-space: nowrap;
   font-size: 0.95rem;
+
   transition: color 0.3s ease;
 }
 
@@ -164,13 +163,14 @@ nav a:hover {
   justify-content: center;
   align-items: center;
   text-align: center;
+
   padding: 20px;
   position: relative;
 }
 
 .hero-content {
   position: relative;
-  z-index: 1;
+  z-index: 2;
 }
 
 /* =========================
@@ -207,11 +207,14 @@ h1 {
 .btn {
   margin-top: 30px;
   padding: 14px 28px;
+
   font-size: 1rem;
+  color: white;
+
   background: linear-gradient(135deg, #f97316, #ea580c);
   border: none;
-  color: white;
   border-radius: 8px;
+
   cursor: pointer;
   transition: 0.3s;
   box-shadow: 0 5px 20px rgba(249, 115, 22, 0.3);
@@ -231,6 +234,7 @@ h1 {
   margin: 120px auto 80px auto;
   padding: 20px;
   line-height: 1.7;
+
   flex: 1;
 }
 
@@ -242,9 +246,109 @@ footer {
   text-align: center;
   padding: 40px;
   font-size: 0.9rem;
+
   color: var(--text-muted);
   border-top: 1px solid rgba(255,255,255,0.05);
+
   margin-top: auto;
+}
+
+/* =========================
+   GAME CARDS (POLISHED)
+========================= */
+
+#games-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 24px;
+  margin-top: 30px;
+}
+
+/* CARD */
+.game-card {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 14px;
+  padding: 22px;
+
+  backdrop-filter: blur(10px);
+  position: relative;
+  overflow: hidden;
+
+  transition: transform 0.25s ease, box-shadow 0.25s ease, border 0.25s ease;
+
+  animation: fadeUp 0.5s ease both;
+}
+
+/* hover glow */
+.game-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+
+  background: radial-gradient(circle at top left,
+    rgba(249, 115, 22, 0.12),
+    transparent 60%);
+
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.game-card:hover {
+  transform: translateY(-6px);
+  border: 1px solid rgba(249, 115, 22, 0.35);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4);
+}
+
+.game-card:hover::before {
+  opacity: 1;
+}
+
+/* stagger animation */
+.game-card:nth-child(1) { animation-delay: 0.05s; }
+.game-card:nth-child(2) { animation-delay: 0.1s; }
+.game-card:nth-child(3) { animation-delay: 0.15s; }
+
+/* TITLE */
+.game-card h3 {
+  font-family: 'Cinzel', serif;
+  font-size: 1.3rem;
+  margin: 0 0 10px 0;
+  color: var(--accent-soft);
+}
+
+/* DESCRIPTION */
+.game-card p {
+  color: var(--text-muted);
+  font-size: 0.95rem;
+  line-height: 1.6;
+  margin-bottom: 14px;
+}
+
+/* STATUS BADGE */
+.game-card span {
+  display: inline-block;
+  font-size: 0.75rem;
+
+  padding: 6px 10px;
+  border-radius: 999px;
+
+  background: rgba(249, 115, 22, 0.12);
+  color: var(--accent);
+
+  border: 1px solid rgba(249, 115, 22, 0.25);
+}
+
+/* ANIMATION */
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 /* =========================
